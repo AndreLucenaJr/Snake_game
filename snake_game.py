@@ -19,7 +19,7 @@ delta_X, delta_y = 0, 0
 
 def snake():
     global x, y
-    x = x + delta_X
+    x = x + delta_x
     y = y + delta_y
     pygame.draw.rect(screen, (255, 255, 255), [x, y, 10, 10])
     pygame.display.update()
@@ -27,7 +27,8 @@ def snake():
 
 #set the events
 while True:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         #set the Quit event
         if event.type == QUIT:
             quit() 
@@ -35,7 +36,7 @@ while True:
         if (event.type == pygame.KEYDOWN):
             if(event.key == pygame.K_LEFT):  
                 delta_x = -10
-                delta_y = 10
+                delta_y = 0
             elif(event.key == pygame.K_RIGHT):
                 delta_x = 10
                 delta_y = 0
@@ -47,4 +48,5 @@ while True:
                 delta_y = 10
             else:
                 continue
-    snake()
+                
+            snake()
