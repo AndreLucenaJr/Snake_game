@@ -15,12 +15,18 @@ pygame.display.update()
 
 #Create the snake
 x, y = 200, 200
-delta_X, delta_y = 0, 0
+delta_x, delta_y = 0, 0
 
+apple_x, apple_y = random.randrange(0, width) // 10 * 10, random.randrange(0, height) // 10 * 10
+
+clock = pygame.time.Clock()
+  
 def snake():
     global x, y
-    x = x + delta_x
-    y = y + delta_y
+    x = (x + delta_x)%width
+    y = (y + delta_y)%height
+    screen.fill((0, 0, 0))
+    pygame.draw.rect(screen, (255, 0, 0), [apple_x, apple_y, 10, 10])
     pygame.draw.rect(screen, (255, 255, 255), [x, y, 10, 10])
     pygame.display.update()
 
@@ -35,18 +41,24 @@ while True:
         #Set the move events of the snake
         if (event.type == pygame.KEYDOWN):
             if(event.key == pygame.K_LEFT):  
-                delta_x = -10
+                if (delta_x != 10):
+                    delta_x = -10
                 delta_y = 0
             elif(event.key == pygame.K_RIGHT):
-                delta_x = 10
+                if (delta_x != -10):
+                    delta_x = 10
                 delta_y = 0
             elif(event.key == pygame.K_UP):
                 delta_x = 0
-                delta_y = -10
+                if (delta_y != 10):
+                    delta_y = -10
             elif(event.key == pygame.K_DOWN):
                 delta_x = 0
-                delta_y = 10
+                if(delta_y != -10):
+                    delta_y = 10
             else:
                 continue
-                
             snake()
+    if(not events):
+        snake()
+    clock.tick(10)
