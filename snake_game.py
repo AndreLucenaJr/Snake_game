@@ -22,11 +22,18 @@ apple_x, apple_y = random.randrange(0, width) // 10 * 10, random.randrange(0, he
 body_list = [(x, y)]
 
 clock = pygame.time.Clock()
-  
+
+game_over = False
+
+
 def snake():
-    global x, y, apple_x, apple_y
+    global x, y, apple_x, apple_y, game_over
     x = (x + delta_x)%width
     y = (y + delta_y)%height
+
+    if ((x, y) in body_list[1:]):
+        game_over = True
+        return 
     
     body_list.append((x,y))
     
@@ -45,6 +52,9 @@ def snake():
 
 #set the events
 while True:
+    if game_over:
+        pygame.quit()
+        quit()
     events = pygame.event.get()
     for event in events:
         #set the Quit event
