@@ -45,6 +45,9 @@ def snake():
         del body_list[0]
         
     screen.fill((0, 0, 0))
+
+    score = font.render('Score' + str(len(body_list)), True,(255, 255, 0))
+    screen.blit(score,[0, 0])
     pygame.draw.rect(screen, (255, 0, 0), [apple_x, apple_y, 10, 10])
     for (i,j) in body_list:
         pygame.draw.rect(screen, (255, 255, 255), [i, j, 10, 10])
@@ -55,6 +58,8 @@ def snake():
 while True:
     if game_over:
         screen.fill((0, 0, 0)) 
+        score = font.render('Score' + str(len(body_list)), True,(255, 255, 0))
+        screen.blit(score,[0, 0])
         lose_text = font.render('Game Over', True, (255, 255, 255))
         screen.blit(lose_text, [width // 3, height // 3 ])
         pygame.display.update()
