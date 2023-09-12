@@ -1,8 +1,8 @@
 #imports
 import pygame, sys
 from pygame.locals import*
-import time
 import random
+import time
 
 pygame.init()
 
@@ -25,6 +25,7 @@ clock = pygame.time.Clock()
 
 game_over = False
 
+font = pygame.font.SysFont(None, 40)
 
 def snake():
     global x, y, apple_x, apple_y, game_over
@@ -53,6 +54,11 @@ def snake():
 #set the events
 while True:
     if game_over:
+        screen.fill((0, 0, 0)) 
+        lose_text = font.render('Game Over', True, (255, 255, 255))
+        screen.blit(lose_text, [width // 3, height // 3 ])
+        pygame.display.update()
+        time.sleep(10)
         pygame.quit()
         quit()
     events = pygame.event.get()
