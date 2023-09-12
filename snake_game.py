@@ -19,15 +19,27 @@ delta_x, delta_y = 0, 0
 
 apple_x, apple_y = random.randrange(0, width) // 10 * 10, random.randrange(0, height) // 10 * 10
 
+body_list = [(x, y)]
+
 clock = pygame.time.Clock()
   
 def snake():
-    global x, y
+    global x, y, apple_x, apple_y
     x = (x + delta_x)%width
     y = (y + delta_y)%height
+    
+    body_list.append((x,y))
+    
+    if apple_x == x and apple_y == y:
+        while ((apple_x, apple_y) in body_list):
+            apple_x, apple_y = random.randrange(0, width) // 10 * 10, random.randrange(0, height) // 10 * 10
+    else:
+        del body_list[0]
+        
     screen.fill((0, 0, 0))
     pygame.draw.rect(screen, (255, 0, 0), [apple_x, apple_y, 10, 10])
-    pygame.draw.rect(screen, (255, 255, 255), [x, y, 10, 10])
+    for (i,j) in body_list:
+        pygame.draw.rect(screen, (255, 255, 255), [i, j, 10, 10])
     pygame.display.update()
 
 
